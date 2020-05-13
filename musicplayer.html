@@ -1,0 +1,218 @@
+<html>
+<head>
+    <script src="index.js" defer></script>
+    <!--<script src="mpjs.js" defer></script>-->
+    <!--方格-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- howler.js v2.0.8 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.8/howler.min.js"></script>
+    <!--musquito-->
+    <script src="./node_modules/musquito/dist/musquito-1.1.2.min.js"></script>
+    <!--audioconcat-->
+    <script src="./node_modules/audioconcat/index.js"></script>
+
+
+
+
+
+</head>
+<style>
+
+    body{
+        background-color: #22313F;
+    }
+    .hold {
+        border: solid 5px #ccc;
+    }
+
+    .empty {
+        display: inline-block;
+        height: 90px;
+        width: 90px;
+        margin: 10px;
+        border-radius: 10px;
+        border: solid 3px	#778899;
+        background: white;
+    }
+
+    .hovered {
+        background: #f4f4f4;
+        border-style: dashed;
+    }
+
+
+
+
+    #keys{
+        height: 116px;
+        width: 672px;
+        padding-right: 10px;
+        padding-top: 50px;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }
+
+    .box {
+        width: 80px;
+        height: 80px;
+        margin-left: 5px;
+        margin-top: 5px;
+        float:left;
+        border-radius: 10px;
+        display: block;
+        -webkit-transition: all .15s ease-out;
+        transition: all .15s ease-out;
+    }
+    #a {
+        background-color: #E040FB;
+        <!--box-shadow: 0px 6px 0px #AA00FF;-->
+    }
+
+    #b {
+        background-color: #7C4DFF;
+        <!--box-shadow: 0px 6px 0px #6200EA;-->
+    }
+
+    #c {
+        background-color: #448AFF;
+        <!--box-shadow: 0px 6px 0px #2962FF;-->
+    }
+
+    #d {
+        background-color: #9CCC65;
+        <!--box-shadow: 0px 6px 0px #2E7D32;-->
+    }
+
+    #e {
+        background-color: #FFF176;
+        <!--box-shadow: 0px 6px 0px #FFD600;-->
+    }
+
+    #f {
+        background-color: #FFB74D;
+        <!--box-shadow: 0px 6px 0px #FF9100;-->
+    }
+
+    #g {
+        background-color: #FF7043;
+        <!--box-shadow: 0px 6px 0px #F4511E;-->
+    }
+
+    .box.active {
+        box-shadow: none;
+        margin-top: 5px;
+    }
+
+    #a.active {
+        background-color: #AA00FF;
+    }
+
+    #b.active {
+        background-color: #6200EA;
+    }
+
+    #c.active {
+        background-color: #2962FF;
+    }
+
+    #d.active {
+        background-color: #2E7D32;
+    }
+
+    #e.active {
+        background-color: #FFD600;
+    }
+
+    #f.active {
+        background-color: #FF9100;
+    }
+
+    #g.active {
+        background-color: #F4511E;
+    }
+</style>
+
+
+<div class="empty">
+    <div class="fill" draggable="true"> </div>
+</div>
+
+<div class="empty">
+</div>
+
+<div class="empty">
+</div>
+
+<div class="empty">
+</div>
+
+<div class="empty">
+</div>
+
+<div class="empty">
+</div>
+
+<div class="empty">
+</div>
+
+<div class="empty">
+</div>
+
+
+<audio id="aAudio">
+    <source src="./musicp/Aminor/Am_piano/Am_piano_1.wav" type="audio/wav">
+</audio>
+<audio id="bAudio">
+    <source src="./musicp/Aminor/Am_piano/Am_piano_2.wav" type="audio/wav">
+</audio>
+<audio id="cAudio">
+    <source src="./musicp/Aminor/Am_piano/Am_piano_3.wav" type="audio/wav">
+</audio>
+<audio id="dAudio">
+    <source src="./musicp/Aminor/Am_piano/Am_piano_4.wav" type="audio/wav">
+</audio>
+<audio id="eAudio">
+    <source src="./musicp/Aminor/Am_piano/Am_piano_5.wav" type="audio/wav">
+</audio>
+<audio id="fAudio">
+    <source src="./musicp/Aminor/Am_piano/Am_piano_1.wav" type="audio/wav">
+</audio>
+<audio id="gAudio">
+    <source src="./musicp/Aminor/Am_piano/Am_piano_1.wav" type="audio/wav">
+</audio>
+
+<div id="keys">
+    <div id="a" class="box"></div>
+    <div id="b" class="box"></div>
+    <div id="c" class="box"></div>
+    <div id="d" class="box"></div>
+    <div id="e" class="box"></div>
+    <div id="f" class="box"></div>
+    <div id="g" class="box"></div>
+    <div id="g" class="box"></div>
+</div>
+
+
+
+<!--<div id="audioplay">
+    <audio id='audio1' src="./musicp/Aminor/Am_piano/Am_piano_1.wav" type="audio/wav" preload="auto" autobuffer controls ></audio>
+    <audio id='audio2' src="./musicp/Drum/drum_1.wav" type="audio/wav" preload="auto" autobuffer controls></audio>
+    <button id='playaudio' onclick='playAudio()'>Play Audio</button>
+</div>-->
+<audio controls>
+    <source src="./musicp/Aminor/Am_piano/Am_piano_1.wav" type="audio/wav"  >
+    Your browser does not support the audio element.
+</audio>
+
+<div id="mm">
+<button id="merge" onclick='mergemixAudio()'>play merge</button>
+</div>
+
+<!--<button id="mergeee" onclick='webaudio()'>play mergeeee</button>
+<button id="mus" onclick='muse()'>play muse</button>
+<button id="auuuu" onclick='audioconcat()'>play audio</button>-->
+
+
+
+</html>

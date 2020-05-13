@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.11.6, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.11.6, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo5.png" type="image/x-icon">
+  <meta name="description" content="Website Creator Description">
+  
+  <title>ChinesePage</title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+
+</head>
+
+<style>
+
+    body{
+        background-color: #eeeeee;
+    }
+    .hide {
+        display: none;
+    }
+    .full-height {
+        min-height: 100%;
+        height: 100%;
+    }
+
+    #hello{
+        height: 116px;
+        width: 720px;
+        padding-right: 10px;
+        padding-top: 0px;
+        margin: auto;
+        position: relative;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }
+    #pianosound{
+        height: 200px;
+        width: 1000px;
+        padding-right: 10px;
+        padding-top: 400px;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+
+    }
+    .dragging {
+        cursor: grabbing !important;
+        cursor: -moz-grabbing !important;
+        cursor: -webkit-grabbing !important;
+        opacity: 0.4;
+        /*-webkit-transform: scale(0.95);
+        -moz-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        -o-transform: scale(0.95);*/
+    }
+
+    .no-sel {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .no-transform:hover {
+        -moz-transform: none;
+        -webkit-transform: none;
+        -ms-transform: none;
+    }
+    .required:after {
+        content: '*';
+        color: #ff0000;
+        padding-left: 5px;
+        font-size: 16px;
+    }
+
+    .ir {
+        font: 0/0 a;
+        text-shadow: none;
+        color: transparent;
+    }
+
+    .no-transition {
+        -moz-transition: none;
+        -webkit-transition: none;
+        -ms-transition: none;
+    }
+
+    .unstyled-list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .not-bold {
+        font-weight: 600;
+    }
+
+
+    /**
+    * For modern browsers
+    * 1. The space content is one way to avoid an Opera bug when the
+    *    contenteditable attribute is included anywhere else in the document.
+    *    Otherwise it causes space to appear at the top and bottom of elements
+    *    that are clearfixed.
+    * 2. The use of `table` rather than `block` is only necessary if using
+    *    `:before` to contain the top-margins of child elements.
+    */
+    .cf:before, .cf:after {
+        content:" ";
+        /* 1 */
+        display: table;
+        /* 2 */
+    }
+    .cf:after {
+        clear: both;
+    }
+    /**
+    * For IE 6/7 only
+    * Include this rule to trigger hasLayout and contain floats.
+    */
+    .cf {
+        *zoom: 1;
+    }
+
+    .wrapper--tiles {
+        margin-top: 50px;
+    }
+
+    .tile {
+        background: #ffffff;
+        height: 90px;
+        width: 90px;
+        margin: 10px;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+        box-sizing: border-box;
+        color: transparent;
+        float: left;
+        font: 0/0 a;
+        margin-right: 12.3px;
+        margin-top: 10px;
+        text-align: center;
+        text-shadow: none;
+    }
+
+    .tile[draggable="true"] {
+        cursor: -webkit-grab;
+        cursor: grab;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -khtml-user-drag: element;
+        -webkit-user-drag: element;
+    }
+
+    /* .wrapper--assigned-tiles.full-width {
+         width: 100%;
+     }
+     .wrapper--assigned-tiles.full-width > .tile {
+         width: 24.4%;
+     }
+
+     .wrapper--assigned-tiles {
+         float: left;
+         width: 80%;*/
+    /*-webkit-transition: -webkit-transform 0.1s ease-out;
+    -moz-transition: -moz-transform 0.1s ease-out;
+    -o-transition: -o-transform 0.1s ease-out;
+    -ms-transition: -ms-transform 0.1s ease-out;*/
+    }
+
+
+    .empty {
+        display: inline-block;
+        height: 90px;
+        width: 90px;
+        margin: auto;
+        border-radius: 10px;
+        border: solid 3px	#778899;
+        background: white;
+    }
+
+    .wrapper--assigned-tiles > .tile {/*空格empty*/
+        display: inline-block;
+        height: 98px;
+        width: 98px;
+        margin: 10px;
+        margin-right: -44px;
+        margin-left: 87px;
+        border-radius: 10px;
+        border-color: #778899;
+        border-style: dashed;
+        background: white;
+    }
+    .wrapper--tiles cf{
+        margin: auto;
+
+    }
+    /*.wrapper--assigned-tiles > .tile:nth-child(4),
+    .wrapper--assigned-tiles > .tile:nth-child(8) {         //4格四格
+        margin-right: 0;
+    }*/
+
+    .wrapper--assigned-tiles .assigned-tile {
+        background: #f5f5f5;
+        border-color: 	#778899;
+        border-style: solid;
+        line-height: 180px;
+
+    }
+    .assigned-tile,
+    .unassigned-tile {
+        color: 	inherit;
+        font: inherit;
+        text-shadow: inherit;
+
+    }
+
+
+    .edit-mode .assigned-tile {
+        cursor: move;
+    }
+    .over,
+    .assigned-tile.over {
+        border: 2px dashed #aaa;
+    }
+
+    .wrapper--unassigned-tiles {/*右邊空個的背景 key*/
+
+        float: center;
+        width: 100%;
+        height: 380px;
+        overflow: auto;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+    .unassigned-tile { /*右邊空 要填入的*/
+        width: 78px;
+        height: 78px;
+        margin-left: 9.7px;
+        float:left;
+        border-radius: 10px;
+        display: block;
+        -webkit-transition: all .15s ease-out;
+        transition: all .15s ease-out;
+
+    }
+
+
+    .box {
+        width: 80px;
+        height: 80px;
+        margin-left: 10px;
+        float:left;
+        border-radius: 10px;
+        display: block;
+        -webkit-transition: all .15s ease-out;
+        transition: all .15s ease-out;
+    }
+
+    #a {
+        background-color: #96492d ;
+    }
+
+    #b {
+        background-color: #c53f3c;
+    }
+
+    #c {
+        background-color:#e27431 ;
+    }
+
+    #d {
+        background-color: #d69f69;
+    }
+
+    #e {
+        background-color: #a87f63;
+    }
+
+    #f {
+        background-color: #a67f7a;
+    }
+
+    #g {
+        background-color: #82514a;
+    }
+
+    #h {
+        background-color:#d09632;
+    }
+
+    #i {
+        background-color:#afae6f;
+    }
+
+    #j {
+        background-color: #8e844b;
+    }
+
+    #k {
+        background-color: #37674b;
+    }
+
+    #l {
+        background-color: #61a981;
+    }
+
+    #m {
+        background-color: #4e7073;
+    }
+
+    #n {
+        background-color:#3f4230;
+    }
+
+    .box.active {
+        box-shadow: none;
+        margin-top: 5px;
+    }
+
+    #a.active {
+        background-color: #784431;
+    }
+
+    #b.active {
+        background-color: #973e3b;
+    }
+
+    #c.active {
+        background-color: #a84f18;
+    }
+
+    #d.active {
+        background-color: #c8915c;
+    }
+
+    #e.active {
+        background-color: #9b7256;
+    }
+
+    #f.active {
+        background-color: #926762;
+    }
+
+    #g.active {
+        background-color: #77443d;
+    }
+
+    #h.active {
+        background-color: #be8625;
+    }
+
+    #i.active {
+        background-color: #9a995b ;
+    }
+
+    #j.active {
+        background-color: #796f38;
+    }
+
+    #k.active {
+        background-color: #2a583d;
+    }
+
+    #l.active {
+        background-color: #4c976e;
+    }
+
+    #m.active {
+        background-color: #3e6164;
+    }
+
+    #n.active {
+        background-color: #333625;
+    }
+
+    .tile.active {
+        border: 3px solid 	#37474f;
+</style>
+
+
+<body>
+
+<section class="menu cid-rRSgrdXl7b" once="menu" id="menu1-14">
+
+
+
+    <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="menu-logo">
+            <div class="navbar-brand">
+
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-5" href="../index.html">&nbsp; MUSIC PUZZLE</a></span>
+            </div>
+        </div>
+
+
+    </nav>
+</section>
+
+
+<section class="engine"><a href="https://mobirise.info/j">website templates</a></section>
+
+  <section class="header7 cid-rYbEjMWnOA mbr-parallax-background" id="header7-1l">
+    
+
+    <div class="container">
+        <div class="media-container-row">
+
+            <div class="media-content align-right">
+                <h1 class="mbr-section-title mbr-white pb-3 mbr-fonts-style display-1">
+                    <br>中國風的<br>CHINESE</h1>
+                <div class="mbr-section-text mbr-white pb-3">
+                    <p class="mbr-text mbr-fonts-style display-5">「宮、商、角、徵、羽」及 完全四度、完全五度<br>是中國風音樂的特色。<br>另外更加入了台灣的民謠及流行歌曲，<br>讓每個人都可以認識東方音樂的美好。<br></p>
+                </div>
+                <div class="mbr-section-btn"><a class="btn btn-md btn-white-outline display-4" href="https://mobirise.co">LIVE DEMO</a></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+  <audio id="aAudio">
+      <source src="./musicp/Chinese/a.wav" type="audio/wav">
+  </audio>
+  <audio id="bAudio">
+      <source src="./musicp/Chinese/b.wav" type="audio/wav">
+  </audio>
+  <audio id="cAudio">
+      <source src="./musicp/Chinese/c.wav" type="audio/wav">
+  </audio>
+  <audio id="dAudio">
+      <source src="./musicp/Chinese/d.wav" type="audio/wav">
+  </audio>
+  <audio id="eAudio">
+      <source src="./musicp/Chinese/e.wav" type="audio/wav">
+  </audio>
+  <audio id="fAudio">
+      <source src="./musicp/Chinese/f.wav" type="audio/wav">
+  </audio>
+  <audio id="gAudio">
+      <source src="./musicp/Chinese/g.wav" type="audio/wav">
+  </audio>
+  <audio id="hAudio">
+      <source src="./musicp/Chinese/h.wav" type="audio/wav">
+  </audio>
+  <audio id="iAudio">
+      <source src="./musicp/Chinese/i.wav" type="audio/wav">
+  </audio>
+  <audio id="jAudio">
+      <source src="./musicp/Chinese/j.wav" type="audio/wav">
+  </audio>
+  <audio id="kAudio">
+      <source src="./musicp/Chinese/k.wav" type="audio/wav">
+  </audio>
+  <audio id="lAudio">
+      <source src="./musicp/Chinese/l.wav" type="audio/wav">
+  </audio>
+  <audio id="mAudio">
+      <source src="./musicp/Chinese/m.wav" type="audio/wav">
+  </audio>
+  <audio id="nAudio">
+      <source src="./musicp/Chinese/n.wav" type="audio/wav">
+  </audio>
+
+
+  <div id="hello">
+      <section class="wrapper--tiles cf">
+          <ul class="wrapper--assigned-tiles unstyled-list cf">
+              <li class="tile" draggable="true" data-index="0"></li>
+              <li class="tile" draggable="true" data-index="1"></li>
+              <li class="tile" draggable="true" data-index="2"></li>
+              <li class="tile" draggable="true" data-index="3"></li>
+          </ul>
+          <p><br></p><p><br></p>
+          <ul class="wrapper--unassigned-tiles unstyled-list cf">
+              <li class="tile unassigned-tile" draggable="true" data-index="a" id="a"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="b" id="b"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="c" id="c"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="d" id="d"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="e" id="e"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="f" id="f"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="g" id="g"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="h" id="h"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="i" id="i"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="j" id="j"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="k" id="k"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="l" id="l"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="m" id="m"></li>
+              <li class="tile unassigned-tile" draggable="true" data-index="n" id="n"></li>
+          </ul>
+          <p><br></p>
+      </section>
+  </div>
+  <p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p>
+
+  <section class="mbr-section content8 cid-rKSMP0Ffch" id="content8-o">
+
+      <div class="container">
+          <div class="media-container-row title">
+              <div class="col-12 col-md-8">
+                  <div class="mbr-section-btn align-center">
+                      <p><br></p><p><br></p>
+                      <a class="btn btn-danger display-4" id="playpausebtn" onclick='playpause()'>Play Piano</a>
+                      <a class="btn btn-success display-4" onclick='stopPianoaudio()'>Stop</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+
+
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  <script src="dragchinese.js" defer></script>
+  <!--<script src="mpjs.js" defer></script>-->
+  <!--方格-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <!-- howler.js v2.0.8 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.8/howler.min.js"></script>
+  <!--musquito-->
+  <script src="./node_modules/musquito/dist/musquito-1.1.2.min.js"></script>
+
+
+
+  <script src="assets/dropdown/js/nav-dropdown.js"></script>
+  <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+
+  
+  
+</body>
+</html>

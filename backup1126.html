@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<script src="index.js" defer></script>-->
+    <script src="drag.js" defer></script>
+    <!--<script src="mpjs.js" defer></script>-->
+    <!--方格-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- howler.js v2.0.8 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.8/howler.min.js"></script>
+    <!--musquito-->
+    <script src="./node_modules/musquito/dist/musquito-1.1.2.min.js"></script>
+    <script src="./node_modules/web-audio-api/index.js"></script>
+    <!--<script src="node_modules/requirejs/require.js"></script>-->
+
+    <!--audioconcat
+    <script src="./node_modules/audioconcat/index.js"></script>-->
+
+
+
+</head>
+<style>
+
+    body{
+        background-color: #22313F;
+    }
+
+    .hide {
+        display: none;
+    }
+    .full-height {
+        min-height: 100%;
+        height: 100%;
+    }
+
+    .no-sel {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .no-transform:hover {
+        -moz-transform: none;
+        -webkit-transform: none;
+        -ms-transform: none;
+    }
+    .required:after {
+        content: '*';
+        color: #ff0000;
+        padding-left: 5px;
+        font-size: 16px;
+    }
+
+    .ir {
+        font: 0/0 a;
+        text-shadow: none;
+        color: transparent;
+    }
+
+    .no-transition {
+        -moz-transition: none;
+        -webkit-transition: none;
+        -ms-transition: none;
+    }
+
+    .unstyled-list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .not-bold {
+        font-weight: 600;
+    }
+
+    /**
+    * For modern browsers
+    * 1. The space content is one way to avoid an Opera bug when the
+    *    contenteditable attribute is included anywhere else in the document.
+    *    Otherwise it causes space to appear at the top and bottom of elements
+    *    that are clearfixed.
+    * 2. The use of `table` rather than `block` is only necessary if using
+    *    `:before` to contain the top-margins of child elements.
+    */
+    .cf:before, .cf:after {
+        content:" ";
+        /* 1 */
+        display: table;
+        /* 2 */
+    }
+    .cf:after {
+        clear: both;
+    }
+    /**
+    * For IE 6/7 only
+    * Include this rule to trigger hasLayout and contain floats.
+    */
+    .cf {
+        *zoom: 1;
+    }
+
+    .dragging {
+        cursor: grabbing !important;
+        cursor: -moz-grabbing !important;
+        cursor: -webkit-grabbing !important;
+        opacity: 0.4;
+        /*-webkit-transform: scale(0.95);
+        -moz-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        -o-transform: scale(0.95);*/
+    }
+
+    .wrapper--tiles {
+        margin-top: 15px;
+    }
+
+    .tile {
+        background: #f9f9f9;
+        border: 2px solid #ddd;
+        box-sizing: border-box;
+        color: transparent;
+        float: left;
+        font: 0/0 a;
+        margin-right: 10px;
+        margin-top: 10px;
+        text-align: center;
+        text-shadow: none;
+    }
+
+    .tile[draggable="true"] {
+        cursor: -webkit-grab;
+        cursor: grab;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -khtml-user-drag: element;
+        -webkit-user-drag: element;
+    }
+
+    .wrapper--assigned-tiles.full-width {
+        width: 100%;
+    }
+    .wrapper--assigned-tiles.full-width > .tile {
+        width: 24.4%;
+    }
+
+    .wrapper--assigned-tiles {
+        float: left;
+        width: 80%;
+        /*-webkit-transition: -webkit-transform 0.1s ease-out;
+        -moz-transition: -moz-transform 0.1s ease-out;
+        -o-transition: -o-transform 0.1s ease-out;
+        -ms-transition: -ms-transform 0.1s ease-out;*/
+    }
+
+
+    .empty {
+        display: inline-block;
+        height: 90px;
+        width: 90px;
+        margin: 10px;
+        border-radius: 10px;
+        border: solid 3px	#778899;
+        background: white;
+    }
+
+    .wrapper--assigned-tiles > .tile {/*空格empty*/
+        display: inline-block;
+        height: 90px;
+        width: 90px;
+        margin: 10px;
+        border-radius: 10px;
+        border-color: #778899;
+        border-style: dashed;
+        background: white;
+    }
+
+    /*.wrapper--assigned-tiles > .tile:nth-child(4),
+    .wrapper--assigned-tiles > .tile:nth-child(8) {         //4格四格
+        margin-right: 0;
+    }*/
+
+    .wrapper--assigned-tiles .assigned-tile {
+        background: #f5f5f5;
+        border-color: 	#778899;
+        border-style: solid;
+        line-height: 180px;
+    }
+
+    .assigned-tile,
+    .unassigned-tile {
+        color: 	inherit;
+        font: inherit;
+        text-shadow: inherit;
+    }
+
+    .edit-mode .assigned-tile {
+        cursor: move;
+    }
+    .over,
+    .assigned-tile.over {
+        border: 2px dashed #aaa;
+    }
+
+    .wrapper--unassigned-tiles {/*右邊空個的背景 key*/
+
+        float: center;
+        width: 100%;
+        height: 380px;
+        overflow: auto;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+    .unassigned-tile { /*右邊空 要填入的*/
+        width: 80px;
+        height: 80px;
+        margin-left: 10px;
+        float:left;
+        border-radius: 10px;
+        display: block;
+        -webkit-transition: all .15s ease-out;
+        transition: all .15s ease-out;
+    }
+
+
+    .box {
+        width: 80px;
+        height: 80px;
+        margin-left: 10px;
+        float:left;
+        border-radius: 10px;
+        display: block;
+        -webkit-transition: all .15s ease-out;
+        transition: all .15s ease-out;
+    }
+
+    #a {
+        background-color: #E040FB;
+        /*box-shadow: 0px 6px 0px #AA00FF;*/
+    }
+
+    #b {
+        background-color: #7C4DFF;
+        /*box-shadow: 0px 6px 0px #6200EA;*/
+    }
+
+    #c {
+        background-color: #448AFF;
+        box-shadow: 0px 6px 0px #2962FF;
+    }
+
+    #d {
+        background-color: #9CCC65;
+        box-shadow: 0px 6px 0px #2E7D32;
+    }
+
+    #e {
+        background-color: #FFF176;
+        box-shadow: 0px 6px 0px #FFD600;
+    }
+
+    #f {
+        background-color: #FFB74D;
+        box-shadow: 0px 6px 0px #FF9100;
+    }
+
+    #g {
+        background-color: #FF7043;
+        box-shadow: 0px 6px 0px #F4511E;
+    }
+
+    .box.active {
+        box-shadow: none;
+        margin-top: 5px;
+    }
+
+    #a.active {
+        background-color: #AA00FF;
+    }
+
+    #b.active {
+        background-color: #6200EA;
+    }
+
+    #c.active {
+        background-color: #2962FF;
+    }
+
+    #d.active {
+        background-color: #2E7D32;
+    }
+
+    #e.active {
+        background-color: #FFD600;
+    }
+
+    #f.active {
+        background-color: #FF9100;
+    }
+
+    #g.active {
+        background-color: #F4511E;
+    }
+
+    /*@-webkit-keyframes zoom-in {
+        from {
+            opacity: 0;
+            -webkit-transform:scale(0);
+            -moz-transform:scale(0);
+            -ms-transform:scale(0);
+            -o-transform:scale(0);
+            transform:scale(0);
+        }
+        to {
+            -webkit-transform:scale(1);
+            -moz-transform:scale(1);
+            -ms-transform:scale(1);
+            -o-transform:scale(1);
+            transform:scale(1);
+            opacity: 1;
+        }
+    }
+    @-ms-keyframes zoom-in {
+        from {
+            opacity: 0;
+            -webkit-transform:scale(0);
+            -moz-transform:scale(0);
+            -ms-transform:scale(0);
+            -o-transform:scale(0);
+            transform:scale(0);
+        }
+        to {
+            -webkit-transform:scale(1);
+            -moz-transform:scale(1);
+            -ms-transform:scale(1);
+            -o-transform:scale(1);
+            transform:scale(1);
+            opacity: 1;
+        }
+    }
+    .wrapper--assigned-tiles.tile:nth
+    child(2),
+    .wrapper--assigned-tiles .tile:nth-child(6) {
+        -webkit-animation-delay: .05s;
+        animation-delay: .05s;
+    }
+    .wrapper--assigned-tiles .tile:nth-child(3),
+    .wrapper--assigned-tiles .tile:nth-child(7) {
+        -webkit-animation-delay: .1s;
+        animation-delay: .1s;
+    }
+    .wrapper--assigned-tiles .tile:nth-child(4),
+    .wrapper--assigned-tiles .tile:nth-child(8) {
+        -webkit-animation-delay: .12s;
+        animation-delay: .12s;
+    }/*
+
+
+
+
+
+
+
+
+        body{
+            background-color: #22313F;
+        }
+        .hold {
+            border: solid 5px #ccc;
+        }
+
+        .empty {
+            display: inline-block;
+            height: 90px;
+            width: 90px;
+            margin: 10px;
+            border-radius: 10px;
+            border: solid 3px	#778899;
+            background: white;
+        }
+
+        .hovered {
+            background: #f4f4f4;
+            border-style: dashed;
+        }
+
+
+
+
+        #keys{
+            height: 116px;
+            width: 672px;
+            padding-right: 10px;
+            padding-top: 50px;
+            margin: auto;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            margin-left: 5px;
+            margin-top: 5px;
+            float:left;
+            border-radius: 10px;
+            display: block;
+            -webkit-transition: all .15s ease-out;
+            transition: all .15s ease-out;
+        }
+        #a {
+            background-color: #E040FB;
+        <!--box-shadow: 0px 6px 0px #AA00FF;-->
+        }
+
+
+        #g {
+            background-color: #FF7043;
+        <!--box-shadow: 0px 6px 0px #F4511E;-->
+        }
+
+        .box.active {
+            box-shadow: none;
+            margin-top: 5px;
+        }
+
+        #a.active {
+            background-color: #AA00FF;
+        }
+
+        #b.active {
+            background-color: #6200EA;
+        }
+
+        #c.active {
+            background-color: #2962FF;
+        }
+
+        #d.active {
+            background-color: #2E7D32;
+        }
+
+        #e.active {
+            background-color: #FFD600;
+        }
+
+        #f.active {
+            background-color: #FF9100;
+        }
+
+        #g.active {
+            background-color: #F4511E;
+        }
+</style>
+
+
+
+
+
+<audio id="aAudio">
+    <source src="./musicp/Aminor/Am_piano/a.wav" type="audio/wav">
+</audio>
+<audio id="bAudio">
+    <source src="./musicp/Aminor/Am_piano/b.wav" type="audio/wav">
+</audio>
+<audio id="cAudio">
+    <source src="./musicp/Aminor/Am_piano/c.wav" type="audio/wav">
+</audio>
+<audio id="dAudio">
+    <source src="./musicp/Aminor/Am_piano/d.wav" type="audio/wav">
+</audio>
+<audio id="eAudio">
+    <source src="./musicp/Aminor/Am_piano/e.wav" type="audio/wav">
+</audio>
+<audio id="fAudio">
+    <source src="./musicp/Aminor/Am_piano/e.wav" type="audio/wav">
+</audio>
+<audio id="gAudio">
+    <source src="./musicp/Aminor/Am_piano/e.wav" type="audio/wav">
+</audio>
+
+<!--<div id="keys">
+    <div id="a" class="box"></div>
+    <div id="b" class="box"></div>
+    <div id="c" class="box"></div>
+    <div id="d" class="box"></div>
+    <div id="e" class="box"></div>
+    <div id="f" class="box"></div>
+    <div id="g" class="box"></div>
+    <div id="h" class="box"></div>
+</div>-->
+
+
+
+
+<section class="wrapper--tiles cf">
+    <ul class="wrapper--assigned-tiles unstyled-list cf">
+        <li class="tile" draggable="true" data-index="0"></li>
+        <li class="tile assigned-tile" draggable="true" data-index="1">B</li>
+        <li class="tile" draggable="true" data-index="2"></li>
+        <li class="tile" draggable="true" data-index="3"></li>
+        <li class="tile" draggable="true" data-index="4"></li>
+        <li class="tile" draggable="true" data-index="5"></li>
+        <li class="tile" draggable="true" data-index="6"></li>
+        <li class="tile" draggable="true" data-index="7"></li>
+    </ul>
+    <ul class="wrapper--unassigned-tiles unstyled-list cf">
+        <li class="tile unassigned-tile" draggable="true" data-index="a" id="a">0</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="b" id="b">1</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="c" id="c">2</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="d" id="d">3</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="e" id="e">4</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="f" id="f">5</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="g" id="g">6</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="h">7</li>
+        <li class="tile unassigned-tile" draggable="true" data-index="i">8</li>
+    </ul>
+</section>
+<button id="mergeee" onclick='playid()'>play id c</button>
+<button id="merge" onclick='mergeAudio()'>play merge id</button>
+<button id="idm" onclick='playid01()'>play dragover id01</button>
+<button id="idmm" onclick='playid07()'>play dragover id07</button>
+
+
+</html>
